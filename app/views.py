@@ -80,11 +80,11 @@ def get_image(filename):
 
 @app.route('/files')
 def files():
-    if session.get('logged_in'):
+    if not session.get('logged_in'):
+        abort(401)
+    else:
         imagefiles = get_uploaded_images()
         return render_template('files.html', imagefiles = imagefiles)
-    else:
-        abort(401)
 
 
 @app.route('/logout')
